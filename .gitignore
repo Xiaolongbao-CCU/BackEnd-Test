@@ -1,0 +1,17 @@
+node_modules/
+bower_componens/
+.sass-cache/
+*.scssc
+*.pem
+*.md
+public/bundle.js
+public/certificate/certrequest.csr
+*.csr
+public/certificate/certrequest.csr
+*.map
+
+.vscode/launch.json
+*.scssc
+*.crt
+*.key
+public/
