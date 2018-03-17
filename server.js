@@ -38,7 +38,8 @@ app.get('/get', function (req, res) {
 
 var server = app.listen(8081, function () {
 
-            var host = server.address().address;
-            var port = server.address().port;
+    var host = server.address().address;
+    var port = server.address().port;
 
-            console.log("建立成功 ")
+    console.log("建立成功 ")
+});
