@@ -14,6 +14,18 @@ mongoose.model('users', {
     name: String
 });
 
+//UserList
+mongoose.model('userlist', {
+    m_id: String,
+    m_name: String,
+    m_createTime: {
+        type: Date,
+        default: Date.now
+    },
+    m_roomid: String
+});
+
+
 
 
 // respond with "hello world" when a GET request is made to the homepage
@@ -35,6 +47,29 @@ app.get('/get', function (req, res) {
         console.log(user.name);
     });
 });
+
+app.get('/adduser', function (req, res) {
+    let userlist = mongoose.model('userlist');
+
+    var example = {};
+    userlist.create(example, function (err, docs) {
+        var DBstatus = (err ? "存入資料庫失敗" : "存入資料庫成功");
+        console.log(DBstatus, docs);
+        res.send(docs);
+    });
+});
+
+app.get('/userlist', function (req, res) {
+    let userlist = mongoose.model('userlist');
+
+    userlist.find({},
+        function (err, docs) {
+            var DBstatus = (err ? "讀取資料庫失敗" : "讀取資料庫成功");
+            console.log(DBstatus, docs);
+            res.send(docs);
+        });
+});
+
 
 var server = app.listen(8081, function () {
 
