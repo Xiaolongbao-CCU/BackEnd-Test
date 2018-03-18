@@ -10,15 +10,15 @@ db.once('open', function callback() {
 //Schema
 
 //UserList
-mongoose.model('userlist', {
+let userlist = mongoose.model('userlist', {
   m_id: String,
   m_name: String,
-  // m_createTime: { type: Date, default: Date.now },
+  m_createTime: { type: Date, default: Date.now },
   m_roomid: String
 });
 
 //RoomList
-mongoose.model('roomlist', {
+let roomlist = mongoose.model('roomlist', {
   room_id: String,
   room_name: String,
   room_people: Number,
@@ -29,17 +29,18 @@ mongoose.model('roomlist', {
 });
 
 //NoteList
-mongoose.model('notelist', {
+let notelist = mongoose.model('notelist', {
   note_id: String,
   note_pageid: String,
   note_content: String,
   note_userid: String,
+  note_color: String,
   note_createTime: { type: Date, default: Date.now }
 });
 
 
 //WhitePaperList
-mongoose.model('whitepaperlist', {
+let whitepaperlist = mongoose.model('whitepaperlist', {
   page_id: String,
   page_roomid: String,
   page_noteid: String
