@@ -1,38 +1,48 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>
-            This is a chatroom
-        </title>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        This is a chatroom
+    </title>
     <script src=" http://localhost:8001/socket.io/socket.io.js"></script>
     <script>
-        var socket = io.connect ('http://localhost:8001');
-            socket.on('connect' , function(){
-            socket.emit('chooseTheRoom' , prompt("please enter the room number"))
-            socket.emit('addcustomer' , prompt('Who are you'));
+        var socket = io.connect('http://localhost:8001');
+        socket.on('connect', function () {
+            socket.emit('chooseTheRoom', prompt("please enter the room number"))
+            socket.emit('addcustomer', prompt('Who are you'));
+            //In socket, the less event, the best. 越少事件越好，可以嘗試寫在一起
+            //Because an event equal to a request. A request come and back will cost time
+            //Imporve for this :  (只是就此改善，也有其他更好的方式)
+            //socket.emit('chooseTheRoom', 
+            // prompt("please enter the room number"), 
+            // prompt('Who are you'));
         });
-        socket.on('chat' , function(username , data , roomNumber){
+
+        socket.on('chat', function (username, data, roomNumber) {
             var p = document.createElement('p');
             p.innerHTML = username + " : " + data;
             document.getElementById('output').appendChild(p);
         });
-        window.addEventListener('load' , function()
-        {
-            document.getElementById('sendtext').addEventListener('click' , function(roomNumber)
-            {
+
+        window.addEventListener('load', function () {
+            document.getElementById('sendtext').addEventListener('click', function (roomNumber) {
+                console.log(roomNumber);
                 var text = document.getElementById('data').value;
-                io.sockets.in(roomNumber).emit('sendchat' , text);
-            } , false);
-        } , false);
-        </script>
-    </head>
-    <body>
-        <div id="output">
-        </div>
-        <div id="send">
-            <input type = "text" id = "data" size = "100">
-            <br>
-            <input type="button" id = "sendtext" value="Send">
-        </div>
-    </body>
-    </html>
+                io.sockets.in(roomNumber).emit('sendchat', text);
+            }, false);
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div id="output">
+    </div>
+    <div id="send">
+        <input type="text" id="data" size="100">
+        <br>
+        <input type="button" id="sendtext" value="Send">
+    </div>
+</body>
+
+</html>
